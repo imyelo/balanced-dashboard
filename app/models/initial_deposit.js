@@ -1,6 +1,6 @@
 Balanced.InitialDeposit = Balanced.Model.extend(Ember.Validations, {
 	validations: {
-		card_number: {
+		number: {
 			presence: true,
 			format: {
 				validator: function(object, attribute, value) {

@@ -99,7 +99,7 @@ Balanced.MarketplaceInitialDepositController = Balanced.ObjectController.extend(
 
 	_extractCardPayload: function() {
 		var cardData = {
-			card_number: this.get('card_number'),
+			number: this.get('number'),
 			expiration_month: this.get('expiration_month'),
 			expiration_year: this.get('expiration_year'),
 			security_code: this.get('security_code')
