@@ -41,15 +41,15 @@ Balanced.BankAccount = Balanced.FundingInstrument.extend({
 	}.property('last_four', 'bank_name'),
 
 	can_verify: function() {
-		return (!this.get('can_debit') && !this.get('can_confirm_verification') &&
-			this.get('customer')) || Ember.testing;
+		return !this.get('can_debit') && !this.get('can_confirm_verification') &&
+			this.get('customer');
 	}.property('can_debit', 'can_confirm_verification', 'customer'),
 
 	can_confirm_verification: function() {
-		return (this.get('verification') &&
+		return this.get('verification') &&
 			this.get('verification.verification_status') !== 'failed' &&
 			this.get('verification.verification_status') !== 'verified' &&
-			this.get('verification.attempts_remaining') > 0) || Ember.testing;
+			this.get('verification.attempts_remaining') > 0;
 	}.property('verification', 'verification.verification_status', 'verification.attempts_remaining'),
 
 	tokenizeAndCreate: function(customerId) {
@@ -79,8 +79,9 @@ Balanced.BankAccount = Balanced.FundingInstrument.extend({
 				self.set('isSaving', false);
 				promise.reject();
 			} else {
+				Balanced.BankAccount.find(response.bank_accounts[0].href)
 				// Now that it's been tokenized, we just need to associate it with the customer's account
-				Balanced.BankAccount.find(response.bank_accounts[0].href).then(function(bankAccount) {
+				.then(function(bankAccount) {
 					bankAccount.set('links.customer', customerId);
 
 					bankAccount.save().then(function() {
