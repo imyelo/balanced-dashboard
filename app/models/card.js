@@ -1,6 +1,7 @@
-require('app/models/card');
+require('app/models/funding_instrument');
 
 Balanced.Card = Balanced.FundingInstrument.extend({
+
 	uri: '/cards',
 
 	type_name: function() {
